@@ -48,7 +48,19 @@ class AuthController extends Controller
 
 
     //methode pour la connexion
-    
+    public function login(Request $request){
+        $cridentiels=$request->validate([
+         'email'=>'required|string',
+         'password'=>'required',
+        ]);
+
+        if(Auth::attempt($cridentiels)){
+          $user=Auth::user();
+          return 'welcome';
+        }
+        return 'ERRORS';
+    }
+
     //methode pour la deconnexion
 
 }
