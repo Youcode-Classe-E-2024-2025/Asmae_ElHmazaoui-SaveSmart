@@ -4,7 +4,6 @@
     <!-- header -->
     @include('layouts.header')
 
-
     <!-- Login Form with Image -->
     <section class="py-12 bg-gray-100 fade-in">
         <div class="container mx-auto flex justify-center items-center">
@@ -12,6 +11,7 @@
             <div class="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
                 <h3 class="text-3xl font-semibold text-yellow-500 text-center">Se connecter</h3>
                 <form action="/login" method="POST" class="mt-6">
+                    @csrf
                     <div class="mb-4">
                         <label for="email" class="block text-left font-semibold">Email</label>
                         <input type="email" name="email" id="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
