@@ -5,6 +5,7 @@
     <!-- header -->
     @include('layouts.header')
     
+    
     <!-- Sign Up Form with Image -->
     <section class="py-12 bg-gray-100 fade-in">
         <div class="container mx-5 flex justify-center items-center">
