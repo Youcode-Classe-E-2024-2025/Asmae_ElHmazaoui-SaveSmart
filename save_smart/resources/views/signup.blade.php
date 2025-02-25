@@ -12,9 +12,10 @@
             <div class="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
                 <h3 class="text-3xl font-semibold text-yellow-500 text-center">Créer un compte</h3>
                 <form action="/signup" method="POST" class="mt-6">
+                @csrf
                     <div class="mb-4">
-                        <label for="username" class="block text-left font-semibold">Nom d'utilisateur</label>
-                        <input type="text" name="username" id="username" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        <label for="name" class="block text-left font-semibold">Nom d'utilisateur</label>
+                        <input type="text" name="name" id="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
                     </div>
                     <div class="mb-4">
                         <label for="email" class="block text-left font-semibold">Email</label>
@@ -26,7 +27,7 @@
                     </div>
                     <div class="mb-6">
                         <label for="password" class="block text-left font-semibold">Confirmation password</label>
-                        <input type="password" name="passwordConfirm" id="passwordConfirm" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
+                        <input type="password" name="password_confirmation" id="passwordConfirm" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500">
                     </div>
                     <button type="submit" class="w-full px-6 py-2 bg-yellow-500 text-white font-bold rounded-md hover:bg-yellow-400 transition">Créer un compte</button>
                 </form>
