@@ -25,9 +25,9 @@ Route::post('/categories', [CategoryController::class, 'store']);
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
 
 // transactions routes
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
-//     Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
-//     Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
-//     Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
-// });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::post('/transactions', [TransactionController::class, 'store'])->name('transactions.store');
+    Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
+    Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
+});
