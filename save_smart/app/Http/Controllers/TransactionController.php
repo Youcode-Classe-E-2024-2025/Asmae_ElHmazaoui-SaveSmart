@@ -42,27 +42,27 @@ class TransactionController extends Controller
         return view('Dashboard', compact('transactions', 'categories')); // Pass transactions and categories to the view.
     }
 
+    // methodes pour la modification des transactions
+    public function update(Request $request, $id)
+    {
+        $transaction = Transaction::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
 
-    // public function update(Request $request, $id)
-    // {
-    //     $transaction = Transaction::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'type' => 'required|in:Income,Expense',
+            'category_id' => 'required|exists:categories,id',
+            'date' => 'required|date',
+        ]);
 
-    //     $request->validate([
-    //         'amount' => 'required|numeric|min:0',
-    //         'type' => 'required|in:Income,Expense',
-    //         'category_id' => 'required|exists:categories,id',
-    //         'date' => 'required|date',
-    //     ]);
+        $transaction->update([
+            'category_id' => $request->category_id,
+            'amount' => $request->amount,
+            'type' => $request->type,
+            'date' => $request->date,
+        ]);
 
-    //     $transaction->update([
-    //         'category_id' => $request->category_id,
-    //         'amount' => $request->amount,
-    //         'type' => $request->type,
-    //         'date' => $request->date,
-    //     ]);
-
-    //     return view('Dashboard', compact('transactions', 'categories'));
-    // }
+        return view('Dashboard', compact('transactions', 'categories'));
+    }
 
 
     // public function destroy($id)
