@@ -346,7 +346,45 @@
 
     </div>
 
-  
+    <!-- Modals -->
+    <div id="addTransactionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addTransactionModal')">×</span>
+            <h3>Ajouter une Transaction</h3>
+            <form id="addTransactionForm" action="/transactions" method="POST">
+            @csrf
+                <div class="mb-4">
+                    <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Montant:</label>
+                    <input type="number" id="amount" name="amount" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <div class="mb-4">
+                    <label for="type" class="block text-gray-700 text-sm font-bold mb-2">Type:</label>
+                    <select id="type" name="type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        <option value="Income">Revenu</option>
+                        <option value="Expense">Dépense</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="categoryId" class="block text-gray-700 text-sm font-bold mb-2">Catégorie:</label>
+                    <select id="categoryId" name="categoryId" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                        @foreach ($categories as $category )
+                        <option value="{{ $category->id }}">{{$category->name}}</option>  <!-- Add value="{{ $category->id }}" -->
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Date:</label>
+                    <input type="date" id="date" name="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Enregistrer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    
+
 
     <script>
         function openModal(modalId) {
