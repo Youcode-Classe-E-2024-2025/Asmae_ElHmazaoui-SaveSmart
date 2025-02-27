@@ -383,7 +383,30 @@
         </div>
     </div>
 
-    
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addCategoryModal')">×</span>
+            <h3>Ajouter une Catégorie</h3>
+            <form id="addCategoryForm" action="/categories" method="POST">
+            @csrf
+                <div class="mb-4">
+                    <label for="categoryName" class="block text-gray-700 text-sm font-bold mb-2">Nom de la catégorie:</label>
+                    <input type="text" id="categoryName" name="categoryName" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Enregistrer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="addGoalModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addGoalModal')">×</span>
+            <p>Contenu pour Ajouter un Objectif...</p>
+            <!-- Ajouter ici le formulaire pour ajouter un objectif -->
+        </div>
+    </div>
 
 
     <script>
