@@ -42,8 +42,12 @@ class AuthController extends Controller
             'password'=>Hash::make($request->password),
         ]);
 
+        // Régénérer la session après l'authentification
+        $request->session()->regenerate();
+
         // Auth::login($user); connexion automatique après l'inscription
-        return 'welcome';
+        return redirect()->route('Dashboard')->with('success', 'Catégorie ajoutée avec succès.');
+
     }
 
 
@@ -56,7 +60,8 @@ class AuthController extends Controller
 
         if(Auth::attempt($cridentiels)){
           $user=Auth::user();
-          return 'welcome';
+          $request->session()->regenerate();
+          return redirect()->route('Dashboard')->with('success', 'Catégorie ajoutée avec succès.');
         }
         return 'ERRORS';
     }
