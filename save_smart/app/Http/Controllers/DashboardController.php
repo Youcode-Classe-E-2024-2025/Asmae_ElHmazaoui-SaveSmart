@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    // funstion pour appeler la vue dashboard 
+    // function pour appeler la vue dashboard 
      public function showDashboard(){
      
       $categories = Category::where('user_id', Auth::id())->get(); //Récupérer uniquement les catégories créées par l'utilisateur actuel.
