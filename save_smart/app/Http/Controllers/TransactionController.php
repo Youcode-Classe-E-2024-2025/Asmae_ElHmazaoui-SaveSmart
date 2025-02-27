@@ -17,29 +17,30 @@ class TransactionController extends Controller
         return view('Dashboard', compact('transactions', 'categories'));
     }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'amount' => 'required|numeric|min:0',
-    //         'type' => 'required|in:Income,Expense',
-    //         'categoryId' => 'required|exists:categories,id', // Corrected field name
-    //         'date' => 'required|date',
-    //     ]);
+    // methodes pour la création des transactions
+    public function store(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'type' => 'required|in:Income,Expense',
+            'categoryId' => 'required|exists:categories,id', // Corrected field name
+            'date' => 'required|date',
+        ]);
 
-    //     Transaction::create([
-    //         'user_id' => Auth::id(),
-    //         'category_id' => $request->categoryId,  // Corrected field name
-    //         'amount' => $request->amount,
-    //         'type' => $request->type,
-    //         'date' => $request->date,
-    //     ]);
+        Transaction::create([
+            'user_id' => Auth::id(),
+            'category_id' => $request->categoryId,  // Corrected field name
+            'amount' => $request->amount,
+            'type' => $request->type,
+            'date' => $request->date,
+        ]);
 
-    //     // Re-fetch the transactions and categories to include the new transaction
-    //     $transactions = Transaction::where('user_id', Auth::id())->orderBy('date', 'desc')->get();
-    //     $categories = Category::all();
+        // Re-fetch the transactions and categories to include the new transaction
+        $transactions = Transaction::where('user_id', Auth::id())->orderBy('date', 'desc')->get();
+        $categories = Category::all();
 
-    //     return view('Dashboard', compact('transactions', 'categories')); // Pass transactions and categories to the view.
-    // }
+        return view('Dashboard', compact('transactions', 'categories')); // Pass transactions and categories to the view.
+    }
 
 
     // public function update(Request $request, $id)
