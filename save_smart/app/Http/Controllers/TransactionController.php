@@ -64,12 +64,12 @@ class TransactionController extends Controller
         return view('Dashboard', compact('transactions', 'categories'));
     }
 
+    // methodes pour la suppression des transactions
+    public function destroy($id)
+    {
+        $transaction = Transaction::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $transaction->delete();
 
-    // public function destroy($id)
-    // {
-    //     $transaction = Transaction::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-    //     $transaction->delete();
-
-    //     return view('Dashboard', compact('transactions', 'categories'));
-    // }
+        return view('Dashboard', compact('transactions', 'categories'));
+    }
 }
