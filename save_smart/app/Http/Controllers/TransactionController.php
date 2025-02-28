@@ -17,5 +17,26 @@ class TransactionController extends Controller
         return view('Dashboard', compact('transactions', 'categories'));
     }
 
-    
+    // methode pour la création des transactions
+    public function store(Request $request)
+    {
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'type' => 'required|in:Income,Expense',
+            'categoryId' => 'required|exists:categories,id', // Corrected field name
+            'date' => 'required|date',
+        ]);
+
+        Transaction::create([
+            'user_id' => Auth::id(),
+            'category_id' => $request->categoryId,  // Corrected field name
+            'amount' => $request->amount,
+            'type' => $request->type,
+            'date' => $request->date,
+        ]);
+
+        return redirect()->route('Dashboard'); // Redirect back to the dashboard
+    }
+
+  
 }
