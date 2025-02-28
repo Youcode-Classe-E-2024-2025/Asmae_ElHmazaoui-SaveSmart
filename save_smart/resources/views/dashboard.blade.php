@@ -139,7 +139,140 @@
                 </div>
             </header>
 
-          
+            <!-- Grille des statistiques principales -->
+        <div id="dashboard-section" class="dashboard-section">
+            <div id="mainStats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+                <!-- Visiteurs -->
+                <div class="bg-white shadow rounded-md p-4 dashboard-card blue">
+                    <div class="flex items-center mb-2">
+                        <img src="https://via.placeholder.com/32/2196F3/FFFFFF?text=Visits" alt="Visits Icon" class="w-8 h-8 mr-2 rounded">
+                        <p class="text-3xl font-bold text-blue-700">10K</p>
+                    </div>
+                    <p class="text-gray-500 text-sm">Visitors</p>
+                    <p class="text-xs text-gray-400">From last month</p>
+                </div>
+
+                <!-- Volume -->
+                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
+                    <div class="flex items-center mb-2">
+                        <img src="https://via.placeholder.com/32/4CAF50/FFFFFF?text=Vol" alt="Volume Icon" class="w-8 h-8 mr-2 rounded">
+                        <p class="text-3xl font-bold text-green-700">100%</p>
+                    </div>
+                    <p class="text-gray-500 text-sm">Volume</p>
+                </div>
+
+                <!-- Share -->
+                <div class="bg-white shadow rounded-md p-4 dashboard-card blue">
+                    <div class="flex items-center">
+                         <i class="fa fa-share-alt fa-2x text-blue-500 mr-2"></i>
+                        <p class="text-2xl font-bold">1000</p>
+                    </div>
+                    <p class="text-gray-500">Share</p>
+                </div>
+
+                <!-- Network -->
+                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
+                    <div class="flex items-center">
+                       <i class="fa fa-users fa-2x text-green-500 mr-2"></i>
+                        <p class="text-2xl font-bold">600</p>
+                    </div>
+                    <p class="text-gray-500">Network</p>
+                </div>
+
+                 <!-- Ratings Received -->
+                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
+                    <div class="flex items-center">
+                        <i class="fa fa-star fa-2x text-green-500 mr-2"></i>
+                        <p class="text-2xl font-bold">4000+</p>
+                    </div>
+                    <p class="text-gray-500">Ratings Received</p>
+                </div>
+
+                <!-- Achievements -->
+                <div class="bg-white shadow rounded-md p-4 dashboard-card blue">
+                    <div class="flex items-center">
+                        <i class="fa fa-trophy fa-2x text-blue-500 mr-2"></i>
+                        <p class="text-2xl font-bold">17</p>
+                    </div>
+                    <p class="text-gray-500">Achievements</p>
+                </div>
+
+            </div>
+
+             <!-- Section: Memberes de la famille -->
+            <section id="memberPerformance" class="bg-white shadow rounded-md p-4 mb-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Member's Performance</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Sales</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">Shirley Hoe</td>
+                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, NY</td>
+                                <td class="px-6 py-4 text-right whitespace-nowrap">$78,001</td>
+                            </tr>
+                             <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">James Alexander</td>
+                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, FL</td>
+                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
+                            </tr>
+                             <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">Shirley Hoe</td>
+                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, NY</td>
+                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
+                            </tr>
+                             <tr>
+                                <td class="px-6 py-4 whitespace-nowrap">Nick Xander</td>
+                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, FL</td>
+                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            </div>
+
+            <!-- Section: transaction -->
+            <section id="MoreStats" class="MoreStats hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                 <!-- depense -->
+                @foreach($transactions as $transaction)
+                <div class="bg-white shadow rounded-md p-4 dashboard-card red">
+                    <div class="flex items-center">
+                         <i class="fa fa-download fa-2x text-red-500 mr-2"></i>
+                        <p class="text-2xl font-bold">{{$transaction->amount}}</p>
+                    </div>
+                    <p class="text-gray-500">{{$transaction->type}}</p>
+                    <p class="text-sm text-gray-400 data-trend down">{{$transaction->date}}</p>
+                    <i class="fas fa-edit cursor-pointer" onclick="openModal('addTransactionModal', 'edit',{{$transaction->id}},'{{$transaction->amount}}','{{$transaction->type}}','{{$transaction->category_id}}', '{{$transaction->date}}')"></i>
+                    <i class="fas fa-trash cursor-pointer" onclick="deleteTransaction({{$transaction->id}})"></i>
+                </div>
+                @endforeach
+                </div>
+            </section>
+
+            <!-- Section: Goals -->
+            <section id="goals-section" class="hidden">
+                 <p>Contenu de la section Goals.</p>
+            </section>
+            <!-- Section: Budget -->
+            <section id="budget-section" class="hidden">
+                 <p>Contenu de la section Budget.</p>
+            </section>
+             <!-- Section: Categories -->
+             <section id="categorie-section" class="hidden">
+                 <p>Contenu de la section Catégories.</p>
+             </section>
+
+        </div>
 
     </div>
 
