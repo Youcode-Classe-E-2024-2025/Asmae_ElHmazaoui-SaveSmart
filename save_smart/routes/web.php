@@ -10,6 +10,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/profile', function () {
+    return view('profile');
+});
+
+
 Route::get('/Dashboard', [DashboardController::class, 'showDashboard'])->name('Dashboard');
 
 
