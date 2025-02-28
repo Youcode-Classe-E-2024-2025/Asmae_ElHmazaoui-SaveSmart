@@ -38,5 +38,27 @@ class TransactionController extends Controller
         return redirect()->route('Dashboard'); // Redirect back to the dashboard
     }
 
-  
+   // methode pour la modification des transactions
+   public function update(Request $request, $id)
+    {
+        $transaction = Transaction::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+
+        $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'type' => 'required|in:Income,Expense',
+            'categoryId' => 'required|exists:categories,id',
+            'date' => 'required|date',
+        ]);
+
+        $transaction->update([
+            'category_id' => $request->categoryId,
+            'amount' => $request->amount,
+            'type' => $request->type,
+            'date' => $request->date,
+        ]);
+
+       return redirect()->route('Dashboard'); // Redirect back to the dashboard
+    }
+
+   
 }
