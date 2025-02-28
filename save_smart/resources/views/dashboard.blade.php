@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord (Simulé)</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="noreferrer" />
 
     <style>
         /* Custom styles for better resemblance */
@@ -107,15 +107,12 @@
                     </div>
                 </div>
             </div>
-            <div class="p-4">
-                <input type="text" placeholder="Search Friend" class="w-full bg-blue-700 text-white rounded p-2">
-            </div>
-
             <nav class="flex-1 p-4">
-                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link active">Dashboard</a>
-                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link">Transactions</a>
-                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link">Goals</a>
-                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link">budget</a>
+                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link active" data-section="dashboard">Dashboard</a>
+                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link" data-section="transactions">Transactions</a>
+                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link" data-section="goals">Goals</a>
+                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link" data-section="budget">Budget</a>
+                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link" data-section="categorie">Catégorie</a>
             </nav>
         </div>
 
@@ -132,7 +129,7 @@
                            Gestion
                         </button>
                         <div class="dropdown-content">
-                            <a href="#" onclick="openModal('addTransactionModal')">Add Transaction</a>
+                            <a href="#" onclick="openModal('addTransactionModal', 'add')">Add Transaction</a>
                             <a href="#" onclick="openModal('addCategoryModal')">Add Categories</a>
                             <a href="#" onclick="openModal('addGoalModal')">Add Goal</a>
                         </div>
@@ -142,217 +139,18 @@
                 </div>
             </header>
 
-            <!-- Grille des statistiques principales -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-
-                <!-- Visiteurs -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card blue">
-                    <div class="flex items-center mb-2">
-                        <img src="https://via.placeholder.com/32/2196F3/FFFFFF?text=Visits" alt="Visits Icon" class="w-8 h-8 mr-2 rounded">
-                        <p class="text-3xl font-bold text-blue-700">10K</p>
-                    </div>
-                    <p class="text-gray-500 text-sm">Visitors</p>
-                    <p class="text-xs text-gray-400">From last month</p>
-                </div>
-
-                <!-- Volume -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
-                    <div class="flex items-center mb-2">
-                        <img src="https://via.placeholder.com/32/4CAF50/FFFFFF?text=Vol" alt="Volume Icon" class="w-8 h-8 mr-2 rounded">
-                        <p class="text-3xl font-bold text-green-700">100%</p>
-                    </div>
-                    <p class="text-gray-500 text-sm">Volume</p>
-                </div>
-
-                <!-- Share -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card blue">
-                    <div class="flex items-center">
-                         <i class="fa fa-share-alt fa-2x text-blue-500 mr-2"></i>
-                        <p class="text-2xl font-bold">1000</p>
-                    </div>
-                    <p class="text-gray-500">Share</p>
-                </div>
-
-                <!-- Network -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
-                    <div class="flex items-center">
-                       <i class="fa fa-users fa-2x text-green-500 mr-2"></i>
-                        <p class="text-2xl font-bold">600</p>
-                    </div>
-                    <p class="text-gray-500">Network</p>
-                </div>
-
-                 <!-- Ratings Received -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
-                    <div class="flex items-center">
-                        <i class="fa fa-star fa-2x text-green-500 mr-2"></i>
-                        <p class="text-2xl font-bold">4000+</p>
-                    </div>
-                    <p class="text-gray-500">Ratings Received</p>
-                </div>
-
-                <!-- Achievements -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card blue">
-                    <div class="flex items-center">
-                        <i class="fa fa-trophy fa-2x text-blue-500 mr-2"></i>
-                        <p class="text-2xl font-bold">17</p>
-                    </div>
-                    <p class="text-gray-500">Achievements</p>
-                </div>
-
-            </div>
-
-             <!-- Section: Member's Performance -->
-            <section class="bg-white shadow rounded-md p-4 mb-6">
-                <h2 class="text-lg font-semibold text-gray-800 mb-4">Member's Performance</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Sales</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">Shirley Hoe</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, NY</td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">$78,001</td>
-                            </tr>
-                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">James Alexander</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, FL</td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
-                            </tr>
-                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">Shirley Hoe</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, NY</td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
-                            </tr>
-                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">Nick Xander</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, FL</td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Section: More Stats -->
-            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                 <!-- Total Subscription -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card red">
-                    <div class="flex items-center">
-                         <i class="fa fa-download fa-2x text-red-500 mr-2"></i>
-                        <p class="text-2xl font-bold">7652</p>
-                    </div>
-                    <p class="text-gray-500">Total Subscription</p>
-                    <p class="text-sm text-gray-400 data-trend down">48% From Last 24 Hours</p>
-                </div>
-
-                <!-- Order Status -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
-                    <div class="flex items-center">
-                         <i class="fa fa-upload fa-2x text-green-500 mr-2"></i>
-                        <p class="text-2xl font-bold">6325</p>
-                    </div>
-                    <p class="text-gray-500">Order Status</p>
-                     <p class="text-sm text-gray-400 data-trend up">36% From Last 6 Months</p>
-                </div>
-
-                <!-- Total Comment -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card red">
-                    <div class="flex items-center">
-                         <i class="fa fa-comment fa-2x text-red-500 mr-2"></i>
-                        <p class="text-2xl font-bold">489</p>
-                    </div>
-                    <p class="text-gray-500">Total Comment</p>
-                </div>
-
-                <!-- Income Status -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
-                    <div class="flex items-center">
-                         <i class="fa fa-money-bill fa-2x text-green-500 mr-2"></i>
-                        <p class="text-2xl font-bold">$5782</p>
-                    </div>
-                    <p class="text-gray-500">Income Status</p>
-                </div>
-
-                <!-- Unique Visitors -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card red">
-                    <div class="flex items-center">
-                         <i class="fa fa-user fa-2x text-red-500 mr-2"></i>
-                        <p class="text-2xl font-bold">652</p>
-                    </div>
-                    <p class="text-gray-500">Unique Visitors</p>
-                     <p class="text-sm text-gray-400 data-trend down">36% From Last 6 Months</p>
-                </div>
-
-                 <!-- Monthly Earnings -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
-                    <div class="flex items-center">
-                         <i class="fa fa-arrow-up fa-2x text-green-500 mr-2"></i>
-                        <p class="text-2xl font-bold">5963</p>
-                    </div>
-                    <p class="text-gray-500">Monthly Earnings</p>
-                     <p class="text-sm text-gray-400 data-trend up">36% From Last 6 Months</p>
-                </div>
-            </section>
-
-            <!-- Bottom Stats -->
-            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                <!-- Published Project -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card red">
-                    <div class="flex items-center">
-                        <p class="text-2xl font-bold">532 +1.69%</p>
-                    </div>
-                    <p class="text-gray-500">Published Project</p>
-                </div>
-                <!-- Completed Task -->
-                 <div class="bg-white shadow rounded-md p-4 dashboard-card blue">
-                    <div class="flex items-center">
-                        <p class="text-2xl font-bold">4,569 -0.5%</p>
-                    </div>
-                    <p class="text-gray-500">Completed Task</p>
-                </div>
-                <!-- Successfull Task -->
-                 <div class="bg-white shadow rounded-md p-4 dashboard-card green">
-                    <div class="flex items-center">
-                        <p class="text-2xl font-bold">89% +0.99%</p>
-                    </div>
-                    <p class="text-gray-500">Successfull Task</p>
-                </div>
-                 <!-- Ongoing Project -->
-                 <div class="bg-white shadow rounded-md p-4 dashboard-card yellow">
-                    <div class="flex items-center">
-                        <p class="text-2xl font-bold">365 +0.35%</p>
-                    </div>
-                    <p class="text-gray-500">Ongoing Project</p>
-                </div>
-
-            </section>
-
-             <!-- Upgrade to Pro button -->
-             <div class="flex justify-center">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    <i class="fa fa-star mr-2"></i> Upgrade To Pro
-                </button>
-            </div>
-
-        </div>
+          
 
     </div>
 
-    <!-- Modals -->
+    <!-- Modal pour ajouter une transaction-->
     <div id="addTransactionModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('addTransactionModal')">×</span>
-            <h3>Ajouter une Transaction</h3>
+            <h3 id="transactionModalTitle">Ajouter une Transaction</h3>
             <form id="addTransactionForm" action="/transactions" method="POST">
-            @csrf
+                @csrf
+                <input type="hidden" id="transactionId" name="transactionId">
                 <div class="mb-4">
                     <label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Montant:</label>
                     <input type="number" id="amount" name="amount" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
@@ -383,6 +181,7 @@
         </div>
     </div>
 
+    <!-- Modal pour ajouter une catégorie-->
     <div id="addCategoryModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('addCategoryModal')">×</span>
@@ -400,6 +199,7 @@
         </div>
     </div>
 
+    <!-- Modal pour ajouter un but-->
     <div id="addGoalModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('addGoalModal')">×</span>
@@ -410,9 +210,44 @@
 
 
     <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = "block";
+        function openModal(modalId, action, id = null, amount = null, type = null, categoryId = null, date = null) {
+            const modal = document.getElementById(modalId);
+            const form = document.getElementById('addTransactionForm');
+            const title = document.getElementById('transactionModalTitle');
+
+            // Réinitialiser l'action du formulaire et le titre
+            form.action = "/transactions"; // Par défaut, l'action est l'ajout
+            title.innerText = "Ajouter une Transaction";
+
+            if (action === 'edit') {
+                title.innerText = "Modifier une Transaction";
+                form.action = `/transactions/${id}`; // Modifier l'action pour la mise à jour
+                form.method = 'POST'; // Ajouter une méthode POST
+                form.innerHTML += '<input type="hidden" name="_method" value="PUT">'; // Ajouter un champ caché pour le PUT
+
+                // Pré-remplir les champs du formulaire avec les données de la transaction
+                document.getElementById('transactionId').value = id;
+                document.getElementById('amount').value = amount;
+                document.getElementById('type').value = type;
+                document.getElementById('categoryId').value = categoryId;
+                document.getElementById('date').value = date;
+
+            } else {
+              // Si c'est l'ajout, réinitialisez les champs
+              document.getElementById('transactionId').value = '';
+              document.getElementById('amount').value = '';
+              document.getElementById('type').value = 'Income'; // Valeur par défaut
+              document.getElementById('categoryId').value = '';
+              document.getElementById('date').value = '';
+               // Supprime le champ caché _method s'il existe
+                const methodInput = form.querySelector('input[name="_method"]');
+                if (methodInput) {
+                    methodInput.remove();
+                }
+            }
+              modal.style.display = "block";
         }
+
 
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = "none";
@@ -424,6 +259,91 @@
                 event.target.style.display = "none";
             }
         }
+
+      function deleteTransaction(id) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cette transaction?")) {
+                // Envoyer une requête DELETE vers votre route de suppression
+                fetch(`/transactions/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Important pour la protection CSRF
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // La suppression a réussi, recharger la page ou mettre à jour l'affichage
+                        location.reload();
+                    } else {
+                        // Gérer les erreurs de suppression
+                        alert('Erreur lors de la suppression de la transaction.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors de la suppression de la transaction.');
+                });
+            }
+        }
+        // JavaScript pour gérer l'affichage des sections
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const mainStatsSection = document.getElementById('mainStats');
+            const memberPerformanceSection = document.getElementById('memberPerformance');
+            const moreStatsSection = document.getElementById('MoreStats');
+            const goalsSection = document.getElementById('goals-section');
+            const budgetSection = document.getElementById('budget-section');
+            const categorieSection = document.getElementById('categorie-section');
+
+
+            function showSection(sectionId) {
+                // Masquer toutes les sections
+                mainStatsSection.parentNode.style.display = 'none';
+                memberPerformanceSection.style.display = 'none';
+                moreStatsSection.style.display = 'none';
+                goalsSection.style.display = 'none';
+                budgetSection.style.display = 'none';
+                categorieSection.style.display = 'none';
+
+                // Afficher la section demandée
+                switch (sectionId) {
+                    case 'dashboard':
+                        mainStatsSection.parentNode.style.display = 'block';
+                        memberPerformanceSection.style.display = 'block';
+                        break;
+                    case 'transactions':
+                        moreStatsSection.style.display = 'block';
+                        break;
+                    case 'goals':
+                        goalsSection.style.display = 'block';
+                        break;
+                    case 'budget':
+                        budgetSection.style.display = 'block';
+                        break;
+                    case 'categorie':
+                        categorieSection.style.display = 'block';
+                        break;
+                }
+            }
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    // Retirer la classe "active" de tous les liens
+                    sidebarLinks.forEach(link => link.classList.remove('active'));
+
+                    // Ajouter la classe "active" au lien cliqué
+                    this.classList.add('active');
+
+                    const section = this.dataset.section;
+                    showSection(section);
+                });
+            });
+
+            // Afficher la section "Dashboard" par défaut au chargement de la page
+            showSection('dashboard');
+        });
     </script>
 
 </body>
