@@ -60,5 +60,12 @@ class TransactionController extends Controller
        return redirect()->route('Dashboard'); // Redirect back to the dashboard
     }
 
-   
+   // methode pour la suppression des transactions
+   public function destroy($id)
+    {
+        $transaction = Transaction::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $transaction->delete();
+
+        return redirect()->route('Dashboard'); // Redirect back to the dashboard
+    }
 }
