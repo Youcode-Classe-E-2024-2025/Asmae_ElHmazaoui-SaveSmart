@@ -20,7 +20,7 @@
     </style>
 </head>
 <body class="bg-black h-screen flex items-center justify-center">
-<a href="/logout" class="text-white m-4">log out</a>
+    <a href="/logout" class="text-white m-4">log out</a>
     <div class="container mx-auto text-center">
         <div class="text-white text-2xl mb-8">Créer votre compte</div>
         <div class="flex justify-center space-x-8">
@@ -28,24 +28,41 @@
                 <div class="w-32 h-32 bg-blue-500 rounded-md flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-16 h-16">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                      </svg>
+                    </svg>
                 </div>
                 <div class="text-white mt-2">Steven</div>
             </div>
 
             <div class="profile-container">
                 <div class="w-32 h-32 bg-yellow-300 rounded-md flex items-center justify-center">
-                    <img src="https://static.wikia.nocookie.net/she-raandtheprincessesofpower/images/1/15/Adora-1.png/revision/latest?cb=20181121015314" alt="Avatar Adora" class="h-full w-full object-cover rounded-md" >
+                    <img src="https://static.wikia.nocookie.net/she-raandtheprincessesofpower/images/1/15/Adora-1.png/revision/latest?cb=20181121015314" alt="Avatar Adora" class="h-full w-full object-cover rounded-md">
                 </div>
                 <div class="text-white mt-2">Will</div>
             </div>
 
             <div class="profile-container">
                 <div class="w-32 h-32 rounded-md flex items-center justify-center" style="background: linear-gradient(45deg, #ff00ff, #00ffff);">
-                  <span class="text-white text-4xl font-bold">kids</span>
+                    <span class="text-white text-4xl font-bold">kids</span>
                 </div>
                 <div class="text-white mt-2">Kids</div>
             </div>
+
+            <!-- Affichage conditionnel des infos du compte familial -->
+            @if($familyAccount)
+                <div class="profile-container">
+                    <div class="w-32 h-32 rounded-md flex items-center justify-center" style="background: linear-gradient(45deg, #ff00ff, #00ffff);">
+                        @if($familyAccount->avatar)
+                           <img src="{{ asset('storage/' . $familyAccount->avatar) }}" alt="Avatar" class="h-full w-full object-cover rounded-md">
+                        @else
+                            <span class="text-white text-4xl font-bold">
+                                {{ substr($familyAccount->name, 0, 2) }}  <!-- Affiche les initiales si pas d'avatar -->
+                            </span>
+                        @endif
+                    </div>
+                    <div class="text-white mt-2">{{$familyAccount->name}}</div>
+                </div>
+            @endif
+            <!-- Fin affichage conditionnel -->
 
             <div class="profile-container">
                 @if (!$familyAccount)
