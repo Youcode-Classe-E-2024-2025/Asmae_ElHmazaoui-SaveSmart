@@ -49,7 +49,8 @@
 
             <!-- Affichage conditionnel des infos du compte familial -->
             @if($familyAccount)
-                <div class="profile-container">
+            <a href="/Dashboard">
+            <div class="profile-container">
                     <div class="w-32 h-32 rounded-md flex items-center justify-center" style="background: linear-gradient(45deg, #ff00ff, #00ffff);">
                         @if($familyAccount->avatar)
                            <img src="{{ asset('storage/' . $familyAccount->avatar) }}" alt="Avatar" class="h-full w-full object-cover rounded-md">
@@ -61,6 +62,7 @@
                     </div>
                     <div class="text-white mt-2">{{$familyAccount->name}}</div>
                 </div>
+            </a>               
             @endif
             <!-- Fin affichage conditionnel -->
 

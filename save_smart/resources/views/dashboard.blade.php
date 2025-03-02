@@ -252,8 +252,8 @@
                     </div>
                     <p class="text-gray-500">{{$transaction->type}}</p>
                     <p class="text-sm text-gray-400 data-trend down">{{$transaction->date}}</p>
-                    <i class="fas fa-edit cursor-pointer" onclick="openModal('addTransactionModal', 'edit',{{$transaction->id}},'{{$transaction->amount}}','{{$transaction->type}}','{{$transaction->category_id}}', '{{$transaction->date}}')"></i>
-                    <i class="fas fa-trash cursor-pointer" onclick="deleteTransaction({{$transaction->id}})"></i>
+                    <i class="fas fa-edit cursor-pointer" onclick="openModal('addTransactionModal', 'edit','{{$transaction->id}}','{{$transaction->amount}}','{{$transaction->type}}','{{$transaction->category_id}}', '{{$transaction->date}}')"></i>
+                    <i class="fas fa-trash cursor-pointer" onclick="deleteTransaction('{{$transaction->id}}')"></i>
                 </div>
                 @endforeach
                 </div>
