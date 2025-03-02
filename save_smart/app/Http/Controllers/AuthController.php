@@ -73,5 +73,10 @@ class AuthController extends Controller
         ]);
     }
 
-   
+    //methode pour la deconnexion
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Déconnexion réussie.');
+    }
 }
