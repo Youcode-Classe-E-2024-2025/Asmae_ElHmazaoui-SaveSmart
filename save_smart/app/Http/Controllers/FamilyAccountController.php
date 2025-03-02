@@ -58,5 +58,35 @@ class FamilyAccountController extends Controller
         return view('profile', compact('familyAccount')); // Réutiliser la vue 'profile' et adapter le modal
     }
 
-   
+    public function update(Request $request, $id)
+    {
+        // Récupère le compte familial de l'utilisateur
+        $familyAccount = $request->user()->familyAccount;
+        if (!$familyAccount || $familyAccount->id != $id) {
+            abort(403, 'Accès non autorisé.');
+        }
+
+        // Validation des données
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'avatar' => 'nullable|image|max:2048',
+        ]);
+
+        // Traitement d'un nouvel avatar
+        if ($request->hasFile('avatar')) {
+            if ($familyAccount->avatar) {
+                Storage::disk('public')->delete($familyAccount->avatar);
+            }
+            $validatedData['avatar'] = $request->file('avatar')->store('avatars', 'public');
+        }
+
+        // Mise à jour du compte familial
+        $familyAccount->update($validatedData);
+
+        return redirect()->route('FamilyAccount.index')
+            ->with('success', 'Compte familial mis à jour avec succès.');
+    }
+
+    
+    
 }
