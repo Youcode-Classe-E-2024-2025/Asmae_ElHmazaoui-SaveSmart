@@ -88,5 +88,28 @@ class FamilyAccountController extends Controller
     }
 
     
-    
+    public function destroy(Request $request, $id)
+    {
+        // Récupère le compte familial de l'utilisateur
+        $familyAccount = $request->user()->familyAccount;
+        if (!$familyAccount || $familyAccount->id != $id) {
+            abort(403, 'Accès non autorisé.');
+        }
+
+        // Suppression du fichier avatar s'il existe
+        if ($familyAccount->avatar) {
+            Storage::disk('public')->delete($familyAccount->avatar);
+        }
+
+        // Supprime le compte familial
+        $familyAccount->delete();
+
+        // Mettre à jour l'utilisateur en supprimant l'association
+        $user = $request->user();
+        $user->family_account_id = null;
+        $user->save();
+
+        return redirect()->route('FamilyAccount.index')
+            ->with('success', 'Compte familial supprimé avec succès.');
+    }
 }
