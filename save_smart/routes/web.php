@@ -33,4 +33,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 });
 
-
+// FamilyAccount routes
+Route::get('/FamilyAccount', [FamilyAccountController::class, 'index'])->name('FamilyAccount.index');
+Route::post('/FamilyAccount', [FamilyAccountController::class, 'store'])->name('FamilyAccount.store'); 
+Route::get('/FamilyAccount/{id}/edit', [FamilyAccountController::class, 'edit'])->name('FamilyAccount.edit'); 
+Route::put('/FamilyAccount/{id}', [FamilyAccountController::class, 'update'])->name('FamilyAccount.update'); 
+Route::delete('/FamilyAccount/{id}', [FamilyAccountController::class, 'destroy'])->name('FamilyAccount.destroy');
