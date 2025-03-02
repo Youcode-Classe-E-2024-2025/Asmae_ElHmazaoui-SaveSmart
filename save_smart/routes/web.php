@@ -5,25 +5,21 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\FamilyAccountController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/profile', function () {
-    return view('profile');
-});
-
-
+// Auth Dashboard
 Route::get('/Dashboard', [DashboardController::class, 'showDashboard'])->name('Dashboard');
-
 
 // Auth routes
 Route::get('/signup', [AuthController::class, 'showSignUp']);
 Route::get('/login', [AuthController::class, 'showLogin']);
 Route::post('/signup', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 // category routes
 Route::post('/categories', [CategoryController::class, 'store']);
@@ -36,3 +32,5 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/transactions/{id}', [TransactionController::class, 'update'])->name('transactions.update');
     Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->name('transactions.destroy');
 });
+
+
