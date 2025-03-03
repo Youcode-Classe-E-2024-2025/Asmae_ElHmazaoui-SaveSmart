@@ -121,18 +121,23 @@
 
             <!-- En-tête du tableau de bord -->
             <header class="mb-4">
-                <div class="flex justify-between">
+                <div class="flex justify-between items-center">
                     <h1 class="text-2xl font-semibold text-gray-800">Welcome , "HihohiH"</h1>
 
-                   <div class="dropdown">
-                        <button class="text-l font-semibold text-white bg-gray-800 hover:bg-blue-700 text-white py-2 px-4 rounded-lg border-2 border-gray-800 hover:border-gray-800 shadow-lg transform transition duration-300 hover:scale-105">
-                           Gestion
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="#" onclick="openModal('addTransactionModal', 'add')">Add Transaction</a>
-                            <a href="#" onclick="openModal('addCategoryModal')">Add Categories</a>
-                            <a href="#" onclick="openModal('addGoalModal')">Add Goal</a>
+                   <div class="flex items-center space-x-4"> <!-- Ajout d'un container flex et espace entre les boutons -->
+                       <div class="dropdown">
+                            <button class="text-l font-semibold text-white bg-gray-800 hover:bg-blue-700 text-white py-2 px-4 rounded-lg border-2 border-gray-800 hover:border-gray-800 shadow-lg transform transition duration-300 hover:scale-105">
+                               Gestion
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="#" onclick="openModal('addTransactionModal', 'add')">Add Transaction</a>
+                                <a href="#" onclick="openModal('addCategoryModal')">Add Categories</a>
+                                <a href="#" onclick="openModal('addGoalModal')">Add Goal</a>
+                            </div>
                         </div>
+                        <button onclick="openModal('inviteUserModal')" class="text-l font-semibold text-white bg-gray-800 hover:bg-blue-700 text-white py-2 px-4 rounded-lg border-2 border-gray-800 hover:border-gray-800 shadow-lg transform transition duration-300 hover:scale-105">
+                           Invitation
+                        </button>
                     </div>
 
 
@@ -342,6 +347,7 @@
     </div>
 
 
+
     <script>
         function openModal(modalId, action, id = null, amount = null, type = null, categoryId = null, date = null) {
             const modal = document.getElementById(modalId);
@@ -477,6 +483,31 @@
             // Afficher la section "Dashboard" par défaut au chargement de la page
             showSection('dashboard');
         });
+
+        // JavaScript (Optionnel): Pour le Hover Délai (Solution 2)
+        /*
+        const dropdownButton = document.querySelector('.dropdown > button');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        dropdownButton.addEventListener('mouseenter', () => {
+          dropdownContent.style.display = 'block';
+        });
+
+        dropdownButton.addEventListener('mouseleave', () => {
+          // Ajouter un petit délai pour éviter une fermeture accidentelle
+          setTimeout(() => {
+            if (!dropdownButton.matches(':hover')) { // Check if the button is still hovered
+              dropdownContent.style.display = 'none';
+            }
+          }, 100); // Délai de 100ms
+        });
+
+        dropdownContent.addEventListener('mouseleave', () => { // Close when leaving the dropdown itself
+            dropdownContent.style.display = 'none';
+        });
+        */
+
+
     </script>
 
 </body>
