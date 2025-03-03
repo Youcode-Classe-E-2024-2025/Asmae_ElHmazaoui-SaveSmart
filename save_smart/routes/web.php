@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FamilyAccountController;
+use App\Http\Controllers\InvitationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,3 +40,7 @@ Route::post('/FamilyAccount', [FamilyAccountController::class, 'store'])->name('
 Route::get('/FamilyAccount/{id}/edit', [FamilyAccountController::class, 'edit'])->name('FamilyAccount.edit'); 
 Route::put('/FamilyAccount/{id}', [FamilyAccountController::class, 'update'])->name('FamilyAccount.update'); 
 Route::delete('/FamilyAccount/{id}', [FamilyAccountController::class, 'destroy'])->name('FamilyAccount.destroy');
+
+
+Route::get('/invite', [InvitationController::class, 'showInvitationForm'])->name('invite.form');
+Route::post('/invite', [InvitationController::class, 'sendInvitation'])->name('send.invitation');
