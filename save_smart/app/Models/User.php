@@ -46,4 +46,12 @@ class User extends Authenticatable
 {
     return $this->belongsTo(FamilyAccount::class);
 }
+
+public function savingGoals()
+{
+    return $this->hasMany(SavingGoal::class);
 }
+}
+
+
+
