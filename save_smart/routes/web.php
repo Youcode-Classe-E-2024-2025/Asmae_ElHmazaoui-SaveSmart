@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FamilyAccountController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\SavingGoalController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,3 +45,13 @@ Route::delete('/FamilyAccount/{id}', [FamilyAccountController::class, 'destroy']
 
 Route::get('/invite', [InvitationController::class, 'showInvitationForm'])->name('invite.form');
 Route::post('/invite', [InvitationController::class, 'sendInvitation'])->name('send.invitation');
+
+
+// Saving Goals routes (Objectifs d'épargne)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/saving-goals', [SavingGoalController::class, 'index'])->name('savingGoals.index');
+    Route::post('/saving-goals', [SavingGoalController::class, 'store'])->name('savingGoals.store');
+    Route::get('/saving-goals/{savingGoal}', [SavingGoalController::class, 'show'])->name('savingGoals.show');
+    Route::put('/saving-goals/{savingGoal}', [SavingGoalController::class, 'update'])->name('savingGoals.update');
+    Route::delete('/saving-goals/{savingGoal}', [SavingGoalController::class, 'destroy'])->name('savingGoals.destroy');
+});
