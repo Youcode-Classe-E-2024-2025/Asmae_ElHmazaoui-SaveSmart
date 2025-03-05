@@ -248,7 +248,7 @@
             <!-- Section: transaction -->
             <section id="MoreStats" class="MoreStats hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-                 <!-- depense -->
+                 <!-- Transaction -->
                 @foreach($transactions as $transaction)
                 <div class="bg-white shadow rounded-md p-4 dashboard-card red">
                     <div class="flex items-center">
@@ -264,10 +264,7 @@
                 </div>
             </section>
 
-            <!-- Section: Goals -->
-            <section id="goals-section" class="hidden">
-                 <p>Contenu de la section Goals.</p>
-            </section>
+            
             <!-- Section: Budget -->
             <section id="budget-section" class="hidden">
                  <p>Contenu de la section Budget.</p>
@@ -337,54 +334,102 @@
         </div>
     </div>
 
-    <!-- Modal pour ajouter un but-->
+    <!-- Modal pour ajouter un but (objectif) -->
     <div id="addGoalModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('addGoalModal')">×</span>
-            <p>Contenu pour Ajouter un Objectif...</p>
-            <!-- Ajouter ici le formulaire pour ajouter un objectif -->
+            <h3 id="goalModalTitle">Ajouter un Objectif d'Épargne</h3>
+            <form id="addGoalForm" action="/saving-goals" method="POST">
+                @csrf
+                <input type="hidden" id="goalId" name="goalId">
+                <div class="mb-4">
+                    <label for="goalName" class="block text-gray-700 text-sm font-bold mb-2">Nom de l'objectif:</label>
+                    <input type="text" id="goalName" name="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <div class="mb-4">
+                    <label for="goalAmount" class="block text-gray-700 text-sm font-bold mb-2">Montant de l'objectif:</label>
+                    <input type="number" id="goalAmount" name="goal_amount" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required step="0.01">
+                </div>
+                <div class="mb-4">
+                    <label for="goalDeadline" class="block text-gray-700 text-sm font-bold mb-2">Date limite:</label>
+                    <input type="date" id="goalDeadline" name="deadline" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Enregistrer l'objectif
+                </button>
+            </form>
         </div>
     </div>
 
-
-
     <script>
-        function openModal(modalId, action, id = null, amount = null, type = null, categoryId = null, date = null) {
+        function openModal(modalId, action, id = null, name = null, goal_amount = null, deadline = null) {
             const modal = document.getElementById(modalId);
-            const form = document.getElementById('addTransactionForm');
-            const title = document.getElementById('transactionModalTitle');
+            let form, title;
 
-            // Réinitialiser l'action du formulaire et le titre
-            form.action = "/transactions"; // Par défaut, l'action est l'ajout
-            title.innerText = "Ajouter une Transaction";
+            if (modalId === 'addTransactionModal') {
+                form = document.getElementById('addTransactionForm');
+                title = document.getElementById('transactionModalTitle');
 
-            if (action === 'edit') {
-                title.innerText = "Modifier une Transaction";
-                form.action = `/transactions/${id}`; // Modifier l'action pour la mise à jour
-                form.method = 'POST'; // Ajouter une méthode POST
-                form.innerHTML += '<input type="hidden" name="_method" value="PUT">'; // Ajouter un champ caché pour le PUT
+                // Réinitialiser l'action du formulaire et le titre
+                form.action = "/transactions"; // Par défaut, l'action est l'ajout
+                title.innerText = "Ajouter une Transaction";
 
-                // Pré-remplir les champs du formulaire avec les données de la transaction
-                document.getElementById('transactionId').value = id;
-                document.getElementById('amount').value = amount;
-                document.getElementById('type').value = type;
-                document.getElementById('categoryId').value = categoryId;
-                document.getElementById('date').value = date;
+                if (action === 'edit') {
+                    title.innerText = "Modifier une Transaction";
+                    form.action = `/transactions/${id}`; // Modifier l'action pour la mise à jour
+                    form.method = 'POST'; // Ajouter une méthode POST
+                    form.innerHTML += '<input type="hidden" name="_method" value="PUT">'; // Ajouter un champ caché pour le PUT
 
-            } else {
-              // Si c'est l'ajout, réinitialisez les champs
-              document.getElementById('transactionId').value = '';
-              document.getElementById('amount').value = '';
-              document.getElementById('type').value = 'Income'; // Valeur par défaut
-              document.getElementById('categoryId').value = '';
-              document.getElementById('date').value = '';
-               // Supprime le champ caché _method s'il existe
-                const methodInput = form.querySelector('input[name="_method"]');
-                if (methodInput) {
-                    methodInput.remove();
+                    // Pré-remplir les champs du formulaire avec les données de la transaction
+                    document.getElementById('transactionId').value = id;
+                    document.getElementById('amount').value = amount;
+                    document.getElementById('type').value = type;
+                    document.getElementById('categoryId').value = categoryId;
+                    document.getElementById('date').value = date;
+
+                } else {
+                    // Si c'est l'ajout, réinitialisez les champs
+                    document.getElementById('transactionId').value = '';
+                    document.getElementById('amount').value = '';
+                    document.getElementById('type').value = 'Income'; // Valeur par défaut
+                    document.getElementById('categoryId').value = '';
+                    document.getElementById('date').value = '';
+                    // Supprime le champ caché _method s'il existe
+                    const methodInput = form.querySelector('input[name="_method"]');
+                    if (methodInput) {
+                        methodInput.remove();
+                    }
+                }
+            } else if (modalId === 'addGoalModal') {
+                form = document.getElementById('addGoalForm');
+                title = document.getElementById('goalModalTitle');
+                form.action = "/saving-goals";
+                title.innerText = "Ajouter un Objectif";
+
+                if (action === 'edit') {
+                    title.innerText = "Modifier un Objectif";
+                    form.action = `/saving-goals/${id}`;
+                    form.method = 'POST';
+                    form.innerHTML += '<input type="hidden" name="_method" value="PUT">';
+
+                    document.getElementById('goalId').value = id;
+                    document.getElementById('goalName').value = name;
+                    document.getElementById('goalAmount').value = goal_amount;
+                    document.getElementById('goalDeadline').value = deadline;
+                } else {
+                     document.getElementById('goalId').value = '';
+                    document.getElementById('goalName').value = '';
+                    document.getElementById('goalAmount').value = '';
+                    document.getElementById('goalDeadline').value = '';
+
+                    const methodInput = form.querySelector('input[name="_method"]');
+                    if (methodInput) {
+                        methodInput.remove();
+                    }
                 }
             }
-              modal.style.display = "block";
+
+            modal.style.display = "block";
         }
 
 
@@ -403,6 +448,31 @@
             if (confirm("Êtes-vous sûr de vouloir supprimer cette transaction?")) {
                 // Envoyer une requête DELETE vers votre route de suppression
                 fetch(`/transactions/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}', // Important pour la protection CSRF
+                        'Content-Type': 'application/json'
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // La suppression a réussi, recharger la page ou mettre à jour l'affichage
+                        location.reload();
+                    } else {
+                        // Gérer les erreurs de suppression
+                        alert('Erreur lors de la suppression de la transaction.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors de la suppression de la transaction.');
+                });
+            }
+        }
+          function deleteGoal(id) {
+            if (confirm("Êtes-vous sûr de vouloir supprimer cet objectif?")) {
+                // Envoyer une requête DELETE vers votre route de suppression
+                fetch(`/saving-goals/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}', // Important pour la protection CSRF
@@ -483,31 +553,6 @@
             // Afficher la section "Dashboard" par défaut au chargement de la page
             showSection('dashboard');
         });
-
-        // JavaScript (Optionnel): Pour le Hover Délai (Solution 2)
-        /*
-        const dropdownButton = document.querySelector('.dropdown > button');
-        const dropdownContent = document.querySelector('.dropdown-content');
-
-        dropdownButton.addEventListener('mouseenter', () => {
-          dropdownContent.style.display = 'block';
-        });
-
-        dropdownButton.addEventListener('mouseleave', () => {
-          // Ajouter un petit délai pour éviter une fermeture accidentelle
-          setTimeout(() => {
-            if (!dropdownButton.matches(':hover')) { // Check if the button is still hovered
-              dropdownContent.style.display = 'none';
-            }
-          }, 100); // Délai de 100ms
-        });
-
-        dropdownContent.addEventListener('mouseleave', () => { // Close when leaving the dropdown itself
-            dropdownContent.style.display = 'none';
-        });
-        */
-
-
     </script>
 
 </body>
