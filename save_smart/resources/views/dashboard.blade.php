@@ -264,7 +264,24 @@
                 </div>
             </section>
 
-            
+            <!-- Section: Goals -->
+            <section id="goals-section" class="hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                 <!-- Goal -->
+                @foreach($goals as $goal)
+                <div class="bg-white shadow rounded-md p-4 dashboard-card red">
+                    <div class="flex items-center">
+                         <i class="fa fa-bullseye fa-2x text-red-500 mr-2"></i>
+                        <p class="text-2xl font-bold">{{$goal->name}}</p>
+                    </div>
+                    <p class="text-gray-500">Montant: {{$goal->goal_amount}}</p>
+                    <p class="text-sm text-gray-400 data-trend down">Deadline: {{$goal->deadline}}</p>
+                    <i class="fas fa-edit cursor-pointer" onclick="openModal('addGoalModal', 'edit','{{$goal->id}}','{{$goal->name}}','{{$goal->goal_amount}}','{{$goal->deadline}}')"></i>
+                    <i class="fas fa-trash cursor-pointer" onclick="deleteGoal('{{$goal->id}}')"></i>
+                </div>
+                @endforeach
+                </div>
+            </section>
             <!-- Section: Budget -->
             <section id="budget-section" class="hidden">
                  <p>Contenu de la section Budget.</p>
