@@ -113,6 +113,7 @@
                 <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link" data-section="goals">Goals</a>
                 <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link" data-section="budget">Budget</a>
                 <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link" data-section="categorie">Catégorie</a>
+                <a href="#" class="block py-2 px-4 hover:bg-blue-700 rounded sidebar-link" data-section="statistique">Statistiques</a>
             </nav>
         </div>
 
@@ -246,7 +247,7 @@
             </div>
 
             <!-- Section: transaction -->
-            <section id="MoreStats" class="MoreStats hidden">
+            <section id="transactions-section" class="hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
                  <!-- Transaction -->
                 @foreach($transactions as $transaction)
@@ -290,7 +291,13 @@
              <section id="categorie-section" class="hidden">
                  <p>Contenu de la section Catégories.</p>
              </section>
-
+              <!-- Section: statistique -->
+              <section id="statistique-section" class="hidden">
+                   <div class="bg-white shadow rounded-md p-4 dashboard-card">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Statistiques</h2>
+                        <p>Ici seront affichées les statistiques.</p>
+                    </div>
+             </section>
         </div>
 
     </div>
@@ -516,20 +523,22 @@
             const sidebarLinks = document.querySelectorAll('.sidebar-link');
             const mainStatsSection = document.getElementById('mainStats');
             const memberPerformanceSection = document.getElementById('memberPerformance');
-            const moreStatsSection = document.getElementById('MoreStats');
+            const transactionsSection = document.getElementById('transactions-section');
             const goalsSection = document.getElementById('goals-section');
             const budgetSection = document.getElementById('budget-section');
             const categorieSection = document.getElementById('categorie-section');
+            const statistiqueSection = document.getElementById('statistique-section');
 
 
             function showSection(sectionId) {
                 // Masquer toutes les sections
                 mainStatsSection.parentNode.style.display = 'none';
                 memberPerformanceSection.style.display = 'none';
-                moreStatsSection.style.display = 'none';
+                transactionsSection.style.display = 'none';
                 goalsSection.style.display = 'none';
                 budgetSection.style.display = 'none';
                 categorieSection.style.display = 'none';
+                statistiqueSection.style.display = 'none';
 
                 // Afficher la section demandée
                 switch (sectionId) {
@@ -538,7 +547,7 @@
                         memberPerformanceSection.style.display = 'block';
                         break;
                     case 'transactions':
-                        moreStatsSection.style.display = 'block';
+                        transactionsSection.style.display = 'block';
                         break;
                     case 'goals':
                         goalsSection.style.display = 'block';
@@ -548,6 +557,9 @@
                         break;
                     case 'categorie':
                         categorieSection.style.display = 'block';
+                        break;
+                    case 'statistique':
+                         statistiqueSection.style.display = 'block';
                         break;
                 }
             }
