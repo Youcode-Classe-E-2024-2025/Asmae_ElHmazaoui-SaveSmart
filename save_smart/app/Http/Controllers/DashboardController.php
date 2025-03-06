@@ -1,25 +1,46 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\SavingGoal;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    // function pour appeler la vue dashboard 
-     public function showDashboard(){
-    
-      $goals = SavingGoal::where('user_id', Auth::id())->orderBy('deadline', 'asc')->get(); // Récupérer les objectifs pour l'utilisateur connecté
-      $transactions = Transaction::where('user_id', Auth::id())->orderBy('date', 'desc')->get();
-      $categories = Category::where('user_id', Auth::id())->get(); //Récupérer uniquement les catégories créées par l'utilisateur actuel.
-      return view('dashboard',  compact('goals','transactions', 'categories'));
+    public function showDashboard(Request $request)
+    {
+        $goals = SavingGoal::where('user_id', Auth::id())->orderBy('deadline', 'asc')->get();
+        $transactions = Transaction::where('user_id', Auth::id())->orderBy('date', 'desc')->get();
+        $categories = Category::where('user_id', Auth::id())->get();
 
+ 
 
-     }
+        return view('dashboard', compact('goals', 'transactions', 'categories', 'monthlyExpenses', 'monthlyIncomes', 'year', 'availableYears'));
+    }
 
-    
+    private function getMonthlyTransactions($year, $type)
+    {
+        // Récupérer les transactions du type donné (Expense ou Income)
+        $transactions = Transaction::where('user_id', Auth::id())
+            ->where('type', $type)
+            ->whereRaw("EXTRACT(YEAR FROM date) = ?", [$year])
+            ->get()
+            ->groupBy(function ($transaction) {
+                return Carbon::parse($transaction->date)->format('m'); // Mois au format numérique "01", "02"...
+            });
+
+        // Initialiser un tableau avec 12 mois à 0€
+        $monthlyData = array_fill_keys(range(1, 12), 0);
+
+        // Ajouter les montants aux mois correspondants
+        foreach ($transactions as $month => $items) {
+            $monthlyData[intval($month)] = $items->sum('amount');
+        }
+
+        return $monthlyData;
+    }
 }
