@@ -137,7 +137,7 @@
                             </div>
                         </div>
                         <button onclick="openModal('inviteUserModal')" class="text-l font-semibold text-white bg-gray-800 hover:bg-blue-700 text-white py-2 px-4 rounded-lg border-2 border-gray-800 hover:border-gray-800 shadow-lg transform transition duration-300 hover:scale-105">
-                           Invitation
+                          Invitation
                         </button>
                     </div>
 
@@ -393,6 +393,24 @@
             </form>
         </div>
     </div>
+
+   <!-- Modal pour envoyer une invitation -->
+<div id="inviteUserModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('inviteUserModal')">×</span>
+        <h3>Envoyer une Invitation</h3>
+        <form action="{{ route('send.invitation') }}" method="POST">
+            @csrf
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email du destinataire :</label>
+                <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            </div>
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Envoyer
+            </button>
+        </form>
+    </div>
+</div>
 
     <script>
         function openModal(modalId, action, id = null, name = null, goal_amount = null, deadline = null) {
