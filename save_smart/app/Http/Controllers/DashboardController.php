@@ -17,7 +17,19 @@ class DashboardController extends Controller
         $transactions = Transaction::where('user_id', Auth::id())->orderBy('date', 'desc')->get();
         $categories = Category::where('user_id', Auth::id())->get();
 
- 
+        // Récupérer l'année sélectionnée (ou l'année actuelle par défaut)
+        $year = $request->input('year', date('Y'));
+
+        // Récupérer les années disponibles (distinctes)
+        $availableYears = Transaction::where('user_id', Auth::id())
+            ->selectRaw("DISTINCT EXTRACT(YEAR FROM date) AS year")
+            ->orderBy('year', 'desc')
+            ->pluck('year')
+            ->toArray();
+
+        // Récupérer les statistiques pour les graphiques
+        $monthlyExpenses = $this->getMonthlyTransactions($year, 'Expense');
+        $monthlyIncomes = $this->getMonthlyTransactions($year, 'Income');
 
         return view('dashboard', compact('goals', 'transactions', 'categories', 'monthlyExpenses', 'monthlyIncomes', 'year', 'availableYears'));
     }
