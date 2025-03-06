@@ -292,16 +292,25 @@
                  <p>Contenu de la section Catégories.</p>
              </section>
               <!-- Section: statistique -->
-              <section id="statistique-section" class="hidden">
-                   <div class="bg-white shadow rounded-md p-4 dashboard-card">
-                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Statistiques</h2>
-                        <p>Ici seront affichées les statistiques.</p>
-                    </div>
-             </section>
+            <section id="statistique-section" class="hidden">
+            <form method="GET" action="{{ route('Dashboard') }}">
+               <label for="year">Sélectionner une année :</label>
+                  <select name="year" id="year" onchange="this.form.submit()">
+                       @foreach($availableYears as $availableYear)
+                           <option value="{{ $availableYear }}" {{ $availableYear == $year ? 'selected' : '' }}>
+                               {{ $availableYear }}
+                           </option>
+                       @endforeach
+                  </select>
+            </form>
+
+               <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                  <canvas id="expensesChart" class="h-9" height="150"></canvas>
+                  <canvas id="incomesChart" height="150"></canvas>
+               </div>
+            </section>
         </div>
-
     </div>
-
     <!-- Modal pour ajouter une transaction-->
     <div id="addTransactionModal" class="modal">
         <div class="modal-content">
@@ -583,6 +592,8 @@
             showSection('dashboard');
         });
     </script>
+
+
 
 </body>
 </html>
