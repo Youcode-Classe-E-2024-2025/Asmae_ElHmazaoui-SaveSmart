@@ -593,7 +593,83 @@
         });
     </script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Dépenses mensuelles:", @json($monthlyExpenses));
+        console.log("Revenus mensuels:", @json($monthlyIncomes));
 
+        const monthlyExpensesData = @json($monthlyExpenses);
+        const monthlyIncomesData = @json($monthlyIncomes);
+
+        // Liste des mois en français
+        const monthNames = [
+            "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+            "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+        ];
+
+        // Extraire les labels et les valeurs pour les dépenses et les revenus
+        const labels = monthNames;
+        const expensesData = Object.values(monthlyExpensesData);
+        const incomesData = Object.values(monthlyIncomesData);
+
+        //  Graphique des Dépenses
+        const ctxExpenses = document.getElementById('expensesChart').getContext('2d');
+        new Chart(ctxExpenses, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Dépenses',
+                    data: expensesData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Montant (€)' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Mois' }
+                    }
+                }
+            }
+        });
+
+        //  Graphique des Revenus
+        const ctxIncomes = document.getElementById('incomesChart').getContext('2d');
+        new Chart(ctxIncomes, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Revenus',
+                    data: incomesData,
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Montant (€)' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Mois' }
+                    }
+                }
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
