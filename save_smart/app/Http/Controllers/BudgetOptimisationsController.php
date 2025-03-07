@@ -70,7 +70,7 @@ class BudgetOptimisationsController extends Controller
      */
     public function update(Request $request, BudgetOptimisation $budgetOptimisation)
     {
-        // Valide et met à jour la ressource
+        // Valide et met à jour la ressourc
     }
 
     /**
@@ -110,7 +110,7 @@ class BudgetOptimisationsController extends Controller
      */
     public function showCalculateForm()
     {
-        return view('budget-optimisations.calculate'); // Assurez-vous que cette vue existe
+        return view('Dashboard'); // Assurez-vous que cette vue existe
     }
 
     /**
@@ -133,6 +133,6 @@ class BudgetOptimisationsController extends Controller
         $budget = $this->calculate503020Budget($income);
 
         // Passer le budget à la vue
-        return view('budget-optimisations.result', compact('budget', 'income')); // Assurez-vous que cette vue existe
+        return view('Dashboard', compact('budget', 'income')); // Assurez-vous que cette vue existe
     }
 }
