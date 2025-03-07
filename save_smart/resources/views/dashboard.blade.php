@@ -184,66 +184,70 @@
                         <p class="text-2xl font-bold">600</p>
                     </div>
                     <p class="text-gray-500">Network</p>
-                </div>
-
-                 <!-- Ratings Received -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card green">
-                    <div class="flex items-center">
-                        <i class="fa fa-star fa-2x text-green-500 mr-2"></i>
-                        <p class="text-2xl font-bold">4000+</p>
-                    </div>
-                    <p class="text-gray-500">Ratings Received</p>
-                </div>
-
-                <!-- Achievements -->
-                <div class="bg-white shadow rounded-md p-4 dashboard-card blue">
-                    <div class="flex items-center">
-                        <i class="fa fa-trophy fa-2x text-blue-500 mr-2"></i>
-                        <p class="text-2xl font-bold">17</p>
-                    </div>
-                    <p class="text-gray-500">Achievements</p>
-                </div>
-
+                </div>              
             </div>
 
              <!-- Section: Memberes de la famille -->
-            <section id="memberPerformance" class="bg-white shadow rounded-md p-4 mb-6">
-                <h2 class="text-lg font-semibold text-gray-800 mb-4">Member's Performance</h2>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Sales</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">Shirley Hoe</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, NY</td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">$78,001</td>
-                            </tr>
-                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">James Alexander</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, FL</td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
-                            </tr>
-                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">Shirley Hoe</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, NY</td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
-                            </tr>
-                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">Nick Xander</td>
-                                <td class="px-6 py-4 whitespace-nowrap">Sales Executive, FL</td>
-                                <td class="px-6 py-4 text-right whitespace-nowrap">$89,051</td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+            <!-- Section: Membres de la famille (TOUS) -->
+    @if(!$showInvited)
+    <section id="memberPerformance" class="bg-white shadow rounded-md p-4 mb-6">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Tous les membres de la famille</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                @if($familyMembers->count() > 0)
+                    @foreach($familyMembers as $member)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $member->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $member->email }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap" colspan="2">Aucun membre dans la famille.</td>
+                    </tr>
+                @endif
+                </tbody>
+            </table>
+        </div>
+    </section>
+    @endif
+    <!-- Section: Membres de la famille (INVITÉS) -->
+    @if($showInvited)
+    <section id="invitedMemberPerformance" class="bg-white shadow rounded-md p-4 mb-6">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Membres invités par moi</h2>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                @if($invitedFamilyMembers->count() > 0)
+                    @foreach($invitedFamilyMembers as $member)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $member->name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ $member->email }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap" colspan="2">Aucun membre invité par vous dans la famille.</td>
+                    </tr>
+                @endif
+                </tbody>
+            </table>
+        </div>
+    </section>
+    @endif
             </div>
 
             <!-- Section: transaction -->
