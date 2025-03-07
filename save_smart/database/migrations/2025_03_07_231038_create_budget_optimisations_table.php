@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateBudgetOptimisationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('budget_optimisations', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->string('methodoptimisation');
+            $table->text('detail');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -28,4 +33,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('budget_optimisations');
     }
-};
+}
