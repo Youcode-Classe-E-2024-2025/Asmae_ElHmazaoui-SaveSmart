@@ -34,7 +34,7 @@
                 <a href="/" class="text-gary-900 font-bold hover:underline">À propos</a>
             </div>
             <div class="flex gap-6">
-                <a href="/signup"class="text-yellow-500 font-bold hover:underline">Sign Up</a>
+                <a href="/register"class="text-yellow-500 font-bold hover:underline">Sign Up</a>
                 <a href="/login"class="text-yellow-500 font-bold hover:underline">Log In</a>
             </div>
         </nav>
