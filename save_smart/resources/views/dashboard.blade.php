@@ -399,7 +399,7 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal('inviteUserModal')">×</span>
         <h3>Envoyer une Invitation</h3>
-        <form action="{{ route('send.invitation') }}" method="POST">
+        <form action="{{ route('invitation.send') }}" method="POST">
             @csrf
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email du destinataire :</label>
