@@ -16,12 +16,13 @@ Route::get('/', function () {
 // Auth Dashboard
 Route::get('/Dashboard', [DashboardController::class, 'showDashboard'])->name('Dashboard');
 
-// Auth routes
-Route::get('/signup', [AuthController::class, 'showSignUp']);
-Route::get('/login', [AuthController::class, 'showLogin']);
-Route::post('/signup', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/logout', [AuthController::class, 'logout']);
+
+// Routes d'authentification
+Route::get('/register', [AuthController::class, 'showSignUp'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // category routes
 Route::post('/categories', [CategoryController::class, 'store']);
@@ -43,8 +44,13 @@ Route::put('/FamilyAccount/{id}', [FamilyAccountController::class, 'update'])->n
 Route::delete('/FamilyAccount/{id}', [FamilyAccountController::class, 'destroy'])->name('FamilyAccount.destroy');
 
 
-Route::get('/invite', [InvitationController::class, 'showInvitationForm'])->name('invite.form');
-Route::post('/invite', [InvitationController::class, 'sendInvitation'])->name('send.invitation');
+// Route::get('/invite', [InvitationController::class, 'showInvitationForm'])->name('invite.form');
+// Route::post('/invite', [InvitationController::class, 'sendInvitation'])->name('send.invitation');
+
+// Routes d'invitation
+Route::get('/invite', [InvitationController::class, 'showInvitationForm'])->name('invitation.form');
+Route::post('/invite', [InvitationController::class, 'sendInvitation'])->name('invitation.send');
+Route::get('/accept-invitation/{token}', [InvitationController::class, 'acceptInvitation'])->name('invitation.accept');
 
 
 // Saving Goals routes (Objectifs d'épargne)
