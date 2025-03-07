@@ -15,18 +15,7 @@ class InvitationController extends Controller
 {
     public function showInvitationForm()
     {
-        // Assurez-vous que l'utilisateur est authentifié pour inviter
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'Vous devez être connecté pour inviter des utilisateurs.');
-        }
-
-        $familyAccount = Auth::user()->familyAccount;
-
-        if (!$familyAccount) {
-            return redirect()->route('FamilyAccount.index')->with('error', 'Vous devez d\'abord créer un compte familial pour inviter des utilisateurs.');
-        }
-
-        return view('invite');
+        // ...
     }
 
     public function sendInvitation(Request $request)
@@ -48,12 +37,18 @@ class InvitationController extends Controller
         // Générer un token unique
         $token = Str::uuid();
 
+        $invitedId = null;
+        if ($existingUser) {
+           $invitedId = $existingUser->id;
+        }
+
         // Créer l'invitation
         $invitation = Invitation::create([
             'email' => $request->email,
             'token' => $token,
             'family_account_id' => $familyAccount->id,
             'invited_by' => Auth::id(),
+            'invited_id' => $invitedId, // Enregistre l'ID de l'utilisateur invité (s'il existe)
         ]);
 
         // Créer le lien d'invitation
@@ -100,17 +95,17 @@ class InvitationController extends Controller
             $user->family_account_id = $familyAccountId;
             $user->save();
 
+            // Modifier l'invitation pour enregistrer l'ID de l'utilisateur qui a accepté
+            $invitation->invited_id = $user->id;
+            $invitation->save();
+
             // Supprimer l'invitation après utilisation
             $invitation->delete();
 
-            // Rediriger vers le profil de l'inviteur
-            return redirect()->route('FamilyAccount.index')->with('success', 'Vous avez rejoint le compte familial de ' . $invitedByUser->name . ' !');
+            // Redirige vers le tableau de bord, en indiquant qu'on doit afficher les membres invités
+            return redirect()->route('Dashboard')->with('showInvited', true)->with('success', 'Vous avez rejoint le compte familial de ' . $invitedByUser->name . ' !');
         } else {
-            // Stocker le token d'invitation dans la session
-            session(['invitation_token' => $token]);
-
-            // Rediriger vers la page d'inscription/connexion avec le token
-            return redirect()->route('register')->with('info', 'Veuillez vous inscrire ou vous connecter pour rejoindre le compte familial.');
+            // ...
         }
     }
 }
