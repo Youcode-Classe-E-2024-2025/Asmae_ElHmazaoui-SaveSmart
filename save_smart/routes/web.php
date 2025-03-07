@@ -8,7 +8,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\FamilyAccountController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\SavingGoalController;
-
+use App\Http\Controllers\BudgetOptimisationsController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -61,3 +61,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/saving-goals/{savingGoal}', [SavingGoalController::class, 'update'])->name('savingGoals.update');
     Route::delete('/saving-goals/{savingGoal}', [SavingGoalController::class, 'destroy'])->name('savingGoals.destroy');
 });
+
+// Routes de budget
+Route::get('budget-optimisations/calculate', [BudgetOptimisationsController::class, 'showCalculateForm'])->name('budget-optimisations.calculate-form');
+Route::post('budget-optimisations/calculate', [BudgetOptimisationsController::class, 'calculate'])->name('budget-optimisations.calculate');
+Route::resource('budget-optimisations', BudgetOptimisationsController::class);
