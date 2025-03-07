@@ -1,66 +1,84 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Asmae_ElHamzaoui-gestionBibliotheque
+# Application de Gestion de Bibliothèque avec Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Description
 
-## About Laravel
+Application web en Laravel permettant aux utilisateurs de saisir leurs revenus et dépenses, puis de bénéficier d’une répartition automatique du budget selon la règle logique 50/30/20.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fonctionnalités
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. **Authentification :**
+   - **Inscription** : Les utilisateurs peuvent créer un compte avec un formulaire d'inscription.
+   - **Connexion** : Les utilisateurs peuvent se connecter avec leurs identifiants.
+   - **Déconnexion** : L'utilisateur peut se déconnecter de son compte.
+   - **gestion des comptes familials** : L'utilisateur peut consulter son compte familial après connexion.
+   - **gestion des comptes familials** : L'utilisateur peut inviter des membres de sa famille.
 
-## Learning Laravel
+2. **Gestion des transactions :**
+   - **Afficher la liste des transactions** : Une vue affiche tous les transactions .
+   - **Ajouter de nouvelles transactions** : L'utilisateur peut ajouter des transactions en remplissant un formulaire.
+   - **Modifier ou supprimer des transactions** : Les transactions peuvent être modifiés ou supprimés selon le choix de l'utilisateur.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+3. **Gestion des objectifs d'epargnes :**
+    - **Afficher la liste des objectifs** : Une vue affiche tous les objectifs .
+   - **Ajouter de nouveaux objectifs** : L'utilisateur peut ajouter des objectifs en remplissant un formulaire.
+   - **Modifier ou supprimer des objectifs** : Les objectifs peuvent être modifiés ou supprimés selon le choix de l'utilisateur.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Choix Techniques
 
-## Laravel Sponsors
+### 1. **Framework utilisé : Laravel**
+Laravel a été choisi pour cette application pour ses avantages en termes de productivité et de sécurité. Voici quelques raisons :
+   - **Système d'authentification intégré** : Laravel facilite la gestion des utilisateurs, l'inscription, la connexion et la déconnexion avec des méthodes simples à configurer.
+   - **Migrations et Eloquent ORM** : Laravel offre un système de migrations facile à utiliser pour gérer la base de données et un ORM performant pour interagir avec celle-ci.
+   - **Blade Templates** : Le moteur de templates Blade permet de séparer la logique du front-end de la logique back-end, rendant l'application facile à maintenir.
+   - **Sécurité** : Laravel inclut des fonctionnalités de sécurité par défaut telles que la protection contre les injections SQL, le hachage des mots de passe, et la validation des entrées utilisateurs.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 2. **Base de données : PostgreSQL**
+PostgreSQL a été choisi comme système de gestion de base de données en raison de ses performances et de sa compatibilité avec Laravel.
 
-### Premium Partners
+   - **Tables principales** :
+     - `users` : Contient les informations des utilisateurs (nom, email, mot de passe).
+     - `categories` : Contient les informations des categories.
+     - `transactions` : Contient les informations sur les transactions .
+     - `saving_goals` : Contient les informations sur les saving_goals .
+     - `family_accounts` : Contient les informations sur les family_accounts.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### 3. **Architecture MVC**
+L'application suit le modèle **MVC (Modèle-Vue-Contrôleur)** pour organiser le code de manière structurée et maintenable. Les principales composantes sont :
+   - **Modèles (Models)** : Représentent les données et la logique de l'application. Exemple : `User`, `Transaction`, `Invitation`.
+   - **Vues (Views)** : Les pages HTML rendues par l'utilisateur. Exemple : `index.blade.php`...
+   - **Contrôleurs (Controllers)** : Gèrent la logique d'application et l'interaction entre le modèle et la vue. Exemple : `SavingGoalController`.
 
-## Contributing
+### 4. **Gestion des erreurs et validation**
+   - Utilisation de la **validation intégrée** de Laravel pour valider les formulaires d'inscription, de connexion et d'ajout de livres.
+   - Gestion des erreurs avec des messages d'erreur clairs et appropriés pour l'utilisateur.
+   - Sécurisation des formulaires avec **CSRF Tokens** et protection contre les attaques XSS et SQL injection.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 5. **Tests**
+Des tests ont été écrits pour valider les fonctionnalités de l'application, y compris :
+   - Tests unitaires pour les fonctions critiques du backend.
+   - Tests fonctionnels pour vérifier l'intégrité du processus d'emprunt et de retour de livres.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Installation
 
-## Security Vulnerabilities
+### Prérequis
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **PHP** 8.x ou supérieur
+- **Composer** (gestionnaire de dépendances PHP)
+- **PostgreSQL** installé et configuré
 
-## License
+### Étapes d'installation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. **Cloner le projet** :
+
+   ```bash
+   git clone https://github.com/Youcode-Classe-E-2024-2025/Asmae_ElHamzaoui-gestionBibliotheque
+   cd  Asmae_ElHamzaoui-gestionBibliotheque
+
+
